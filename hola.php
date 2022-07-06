@@ -10,7 +10,7 @@
     
     <?php
 
-        echo "Hola Mundo<br>";
+        echo "Hola Mundo<br>"; //Imprime en pantalla Hola mundo
         echo date("d/m/Y");
 
     ?>
