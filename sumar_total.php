@@ -36,7 +36,7 @@ $aProductos[] = array("nombre" => "Aire Acondicionado Split Inverter Frío/Calor
 <body>
     <main class="container">
         <div class="row">
-            <div class="col-12 text-center">
+            <div class="col-12 text-center py-3">
                 <h1>Listado de productos</h1>
             </div>
         </div>
@@ -54,33 +54,31 @@ $aProductos[] = array("nombre" => "Aire Acondicionado Split Inverter Frío/Calor
                         </tr>
                     </thead>
                     <tbody>
-                        
+                     <?php 
+                        $contador = 0;
+                        $sumatoriaPrecio = 0;
+                        while ($contador <count($aProductos)) {
+
+                        $sumatoriaPrecio += $aProductos[$contador]["precio"]; 
+                     ?>
                         <tr>
-                            <td><?php echo $aProductos [0] ["nombre"]; ?></td>
-                            <td><?php echo $aProductos [0] ["marca"]; ?></td>
-                            <td><?php echo $aProductos [0] ["modelo"]; ?></td>
-                            <td><?php echo $aProductos [0] ["stock"] > 10 ? "Hay stock" : ($aProductos [0] ["stock"] > 0 && $aProductos[0]["stock"] <= 10 ? "Poco stock" : "No hay stock"); ?></td>
-                            <td><?php echo $aProductos [0] ["precio"]; ?></td>
+                            <td><?php echo $aProductos [$contador] ["nombre"]; ?></td>
+                            <td><?php echo $aProductos [$contador] ["marca"]; ?></td>
+                            <td><?php echo $aProductos [$contador] ["modelo"]; ?></td>
+                            <td><?php echo $aProductos [$contador] ["stock"] == 0 ? "No hay stock" : ($aProductos [$contador] ["stock"] <= 10 ? "Poco stock" : "Hay stock"); ?></td>
+                            <td><?php echo $aProductos [$contador] ["precio"]; ?></td>
                             <td><button class="btn btn-primary">Comprar</button></td>
                         </tr>
-                        <tr>
-                            <td><?php echo $aProductos [1] ["nombre"]; ?></td>
-                            <td><?php echo $aProductos [1] ["marca"]; ?></td>
-                            <td><?php echo $aProductos [1] ["modelo"]; ?></td>
-                            <td><?php echo $aProductos [1] ["stock"] > 10 ? "Hay stock" : ($aProductos [1] ["stock"] > 0 && $aProductos[1]["stock"] <= 10 ? "Poco stock" : "No hay stock"); ?></td>
-                            <td><?php echo $aProductos [1] ["precio"]; ?></td>
-                            <td><button class="btn btn-primary">Comprar</button></td>
-                        </tr>
-                        <tr>
-                            <td><?php echo $aProductos [2] ["nombre"]; ?></td>
-                            <td><?php echo $aProductos [2] ["marca"]; ?></td>
-                            <td><?php echo $aProductos [2] ["modelo"]; ?></td>
-                            <td><?php echo $aProductos [2] ["stock"] > 10 ? "Hay stock" : ($aProductos [2] ["stock"] > 0 && $aProductos[2]["stock"] <= 10 ? "Poco stock" : "No hay stock"); ?></td>
-                            <td><?php echo $aProductos [2] ["precio"]; ?></td>
-                            <td><button class="btn btn-primary">Comprar</button></td>
-                        </tr>
-                    </tbody>
+                    <?php 
+                        $contador++;       
+                        }
+                    ?>
                 </table>
+                <div class="row">
+                    <div class="col-12 py-3">
+                        <p>La sumatoria de los precios de los productos es de <?php echo $sumatoriaPrecio?>.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
