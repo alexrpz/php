@@ -56,18 +56,20 @@ function calcularNeto($bruto){
                         </tr>
                     </thead>
                     <tbody>
-                        <?php
-                        $contador=0;
-                        foreach($aEmpleados as $contador){
-                        ?>
-                        <tr>
-                            <td><?php echo $contador["dni"]; ?></td>
-                            <td><?php echo $contador["nombre"]; ?></td>
-                            <td><?php echo number_format(calcularNeto($aEmpleados[$contador]["bruto"])); ?></td>
-                        </tr>
+                        <?php foreach($aEmpleados as $empleados){ ?>
+                    <tr>
+                        <td><?php echo $empleados["dni"]; ?></td>
+                        <td><?php echo mb_strtoupper($empleados["nombre"]); ?></td>
+                        <td>$<?php echo number_format(calcularNeto($empleados["bruto"]), 2, ",", "."); ?></td>
+                    </tr>
                     <?php } ?>                            
                     </tbody>
                 </table>
+                <div class="row">
+                    <div class="col-12">
+                        <p>Los empleados en total son de <?php echo count($aEmpleados)?>.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
