@@ -53,8 +53,7 @@ $aProductos[] = array("nombre" => "Aire Acondicionado Split Inverter Frío/Calor
                             <th>Acción</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        
+                    <tbody>                      
                         <tr>
                             <td><?php echo $aProductos [0] ["nombre"]; ?></td>
                             <td><?php echo $aProductos [0] ["marca"]; ?></td>
