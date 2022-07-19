@@ -4,14 +4,13 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 if($_POST){
-    $usuario= $_POST["txtUsuario"];
-    $clave= $_POST["txtClave"];
+    $usuario=$_POST["txtUsuario"];
+    $clave=$_POST["txtClave"];
 
-
-    if($usuario == "admin" && $clave == "123456"){
-        header("Location: acceso-confirmado.php");
-    } else {
-        $msg = "Usuario o contraseña incorrectos";
+    if($usuario=="admin" && $clave=="12345"){
+        header("location:acceso-confirmado.php");
+    }else{
+        $msg = "Usuario o clave incorrectos";
     }
 }
 ?>
@@ -33,7 +32,7 @@ if($_POST){
         </div>
         <div class="row">
             <div class="col-4">
-                <?php if (isset($msg)): ?>
+                <?php if(isset($msg)): ?>
                     <div class="alert alert-danger" role="alert">
                         <?php echo $msg; ?>        
                     </div> 
@@ -41,11 +40,11 @@ if($_POST){
                 <form method="POST" action="" >                                 
                     <div>
                         <label for="txtUsuario">Usuario:</label>
-                        <input type="text" name="txtUsuario" id="txtUsuario" class="form-control">
+                        <input type="text" name="txtUsuario" id="txtUsuario" class="form-control" required>
                     </div>
                     <div>
                         <label for="txtClave">Clave:</label>
-                        <input type="password" name="txtClave" id="txtClave" class="form-control">
+                        <input type="password" name="txtClave" id="txtClave" class="form-control" required>
                     </div>
                     <div class="py-3">
                         <button type="submit" class=" btn btn-primary">Ingresar</button>
