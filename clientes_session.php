@@ -4,6 +4,15 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 $aClientes=array();
 
+session_start();
+
+if(isset($_SESSION["usuarios"])){
+
+    $aClientes = $_SESSION["usuarios"];
+} else {
+    $aClientes = array();
+}
+
 if($_POST){
     $nombre= $_POST["txtNombre"];
     $dni= $_POST["txtDni"];
@@ -15,7 +24,8 @@ if($_POST){
                         "telefono"=> $telefono,
                         "edad"=>$edad
 );
-
+    $_SESSION["usuarios"] = $aClientes;
+    
 }
 ?>
 <!DOCTYPE html>
