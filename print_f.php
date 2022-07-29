@@ -8,18 +8,15 @@ function print_f($variable)
 {
     if(is_array($variable)){
         $archivo = fopen('datos.txt','a+');
-
         //si es un array, lo recorro y guardo el contenido en el archivo "datos.txt"
         foreach($variable as $item){
             fwrite($archivo, $item . 'Hola');
         }
         fclose($archivo);
-
-    } else{
+    } else {
         //entonces es string, guardo el contenido en el archivo "datos.txt"
         $contenido = "datos de la variable ===> \n" . $variable;
         file_put_contents("datos.txt", $variable);
-    
     }
         echo "Archivo generado.";
 }
