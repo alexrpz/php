@@ -47,5 +47,6 @@ error_reporting(E_ALL);
             </div>
         </div>
     </main>
+    
 </body>
 </html>
