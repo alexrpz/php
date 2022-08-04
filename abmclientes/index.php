@@ -14,9 +14,8 @@ if(file_exists("archivo.txt")){
 } else {
 //Si no existe el archivo
     //Creamos un aClientes inicializado como un array vació
-    $aClientes = array();
+    $aTareas = array();
 }
-
 $pos = isset($_GET["pos"]) && $_GET["pos"] >= 0 ? $_GET["pos"] : "";
 if($_POST){
     $dni= trim($_POST["txtDni"]);
