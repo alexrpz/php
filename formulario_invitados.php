@@ -17,14 +17,12 @@ if($_POST){
     if(isset($_POST["btnInvitado"])){
         $datos= $_REQUEST["txtInvitado"];
         //si el dni ingresado se encuentra en la lista se mostrara ujn mensaje de bienvenido
-        if(in_array($datos, $aDatos)){
+        if(in_array($datos, $aDatos));
         $msg= "Bienvenido a la fiesta";
         //sino un mensaje de no se encuentra en la lista de invitados    
     }else{
         $msg= "No se encuentra en la lista de invitados";
     }
-    }
-
     if(isset($_POST["btnVip"])){
         $cod= $_REQUEST["txtCodigo"];
         //si el codigo es verde entonces mostrara su codigo de acceso es .....
