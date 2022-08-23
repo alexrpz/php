@@ -4,18 +4,39 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 class Persona{
-    public $dni;
-    public $nombre;
-    public $edad;
-    public $nacionalidad;
+    protected $dni;
+    protected  $nombre;
+    protected  $edad;
+    protected  $nacionalidad;
+
+    public function __construct($dni="", $nombre="", $edad="", $nacionalidad=""){
+        $this-> dni = $dni;
+    }
+    public function __destruct()
+    {
+        echo "Destruyendo el objeto" . $this->nombre . "<br>";
+    }
+
+    public function setDni($dni){$this->dni=$dni;}
+    public function getDni(){return $this->dni;}
+
+    public function setNombre($nombre){$this->nombre=$nombre;}
+    public function getNombre(){return $this->nombre;}
+
+    public function setNacionalidad($nacionalidad){$this->nacionalidad=$nacionalidad;}
+    public function getNacionalidad(){return $this->dni;}
+
+    public function setEdad($edad){$this->edad=$edad;}
+    public function getEdad(){return $this->edad;}
+
     public function imprimir(){}
 }
 
 class Alumno extends Persona{
-    public $legajo;    
-    public $notaPortfolio= 0.0;     
-    public $notaPhp= 0.0;   
-    public $notaProyecto= 0.0;
+    private $legajo;    
+    private $notaPortfolio;     
+    private $notaPhp;   
+    private $notaProyecto;
 
     public function __construct()
     {
@@ -23,6 +44,18 @@ class Alumno extends Persona{
        $this->notaPhp= 0.0;
        $this->notaProyecto= 0.0;
     }   
+    public function __destruct()
+    {
+        echo "Destruyendo el objeto" . $this->nombre . "<br>";
+    }
+    public function __get($propiedad)
+    {
+        return $this-> $propiedad;
+    }
+    public function __set($propiedad, $valor)
+    {
+        $this-> $propiedad=$valor;
+    }
 
     public function imprimir(){
         echo "DNI: " . $this->dni ."<br>";
@@ -41,16 +74,45 @@ class Alumno extends Persona{
 }
 
 class Docente extends Persona{
-    public $especialidad;
+    private $especialidad;
+    const ESPECIALIDAD_WP = "Wordpress";
+    const ESPECIALIDAD_ECO = "Economía aplicada";
+    const ESPECIALIDAD_BBDD = "Base de datos";
+
+    public function __get($propiedad)
+    {
+        return $this-> $propiedad;
+    }
+    public function __set($propiedad, $valor)
+    {
+        $this-> $propiedad=$valor;
+    }
+    public function __destruct()
+    {
+        echo "Destruyendo el objeto" . $this->nombre . "<br>";
+    }
     public function imprimir(){}
-    public function imprimirEspecialidadesHabilitadas(){}
+    public function imprimirEspecialidadesHabilitadas(){
+        echo "Un docente puede tener las siguientes especialidades:<br>";
+        echo "Especialidad 1:" . self::ESPECIALIDAD_BBDD . "<br>";
+        echo "Especialidad 2:" . self::ESPECIALIDAD_ECO . "<br>";
+        echo "Especialidad 3:" . self::ESPECIALIDAD_WP . "<br>";
+    }
 }
 $alumno1= new Alumno();
-$alumno1->nombre = "Mauricio Fernández";
-$alumno1->dni = "4234234223";
+$alumno1->setNombre("Mauricio Fernández");
+$alumno1->setDni("4234234223");
+$alumno1->edad = "23";
 $alumno1->nacionalidad = "Argentina";
 $alumno1->notaPhp = 10;
 $alumno1->notaPortfolio = 10;
 $alumno1->notaProyecto = 10;
 $alumno1->imprimir();
+
+$docente1= new Docente();
+$docente1->setNombre("Juan Pérez");
+$docente1-> especialidad= Docente::ESPECIALIDAD_BBDD;
+
+$docente1-> imprimirEspecialidadesHabilitadas();
+
 ?>
