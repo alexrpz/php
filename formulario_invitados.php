@@ -27,7 +27,7 @@ if($_POST){
         $cod= $_REQUEST["txtCodigo"];
         //si el codigo es verde entonces mostrara su codigo de acceso es .....
         if($cod=="verde"){
-            $msg= "su codigo de acceso es". rand(1000, 9999);
+            $msg= "su codigo de acceso es ". rand(1000, 9999);
         }else{
             $msg= "Usted no tiene el pase VIP"; //sino ud. no tiene pase VIP
         }

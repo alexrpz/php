@@ -1,5 +1,7 @@
 <?php
-session_start();
+if(!isset($_SESSION["nombre"])){
+  header("Location:login.php");
+}
 if($_POST){
   if(isset($_SESSION["btnCerrar"])){
     if(isset($_SESSION["nombre"])){
