@@ -1,6 +1,6 @@
 <?php
 
-class Cliente
+class Clientes
 {
     private $idcliente;
     private $nombre;
@@ -147,7 +147,7 @@ class Cliente
         $mysqli->close();
 
     }
-
+    
      public function obtenerTodos(){
         $mysqli = new mysqli(Config::BBDD_HOST, Config::BBDD_USUARIO, Config::BBDD_CLAVE, Config::BBDD_NOMBRE, Config::BBDD_PORT);
         $sql = "SELECT 
@@ -170,7 +170,7 @@ class Cliente
             //Convierte el resultado en un array asociativo
 
             while($fila = $resultado->fetch_assoc()){
-                $entidadAux = new Cliente();
+                $entidadAux = new Clientes();
                 $entidadAux->idcliente = $fila["idcliente"];
                 $entidadAux->nombre = $fila["nombre"];
                 $entidadAux->cuit = $fila["cuit"];

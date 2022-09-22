@@ -24,13 +24,17 @@ class TipoProducto
         return $this;
     }
 
+    public function cargarFormulario($request){
+        $this->idtipoproducto = isset($request["id"])? $request["id"] : "";
+        $this->nombre = isset($request["txtNombre"])? $request["txtNombre"] : "";
+    }
 
     public function insertar()
     {
         //Instancia la clase mysqli con el constructor parametrizado
         $mysqli = new mysqli(Config::BBDD_HOST, Config::BBDD_USUARIO, Config::BBDD_CLAVE, Config::BBDD_NOMBRE, Config::BBDD_PORT);
         //Arma la query
-        $sql = "INSERT INTO clientes (
+        $sql = "INSERT INTO tipo_productos (
                     nombre
                 ) VALUES (
                     '$this->nombre'
@@ -41,7 +45,7 @@ class TipoProducto
             printf("Error en query: %s\n", $mysqli->error . " " . $sql);
         }
         //Obtiene el id generado por la inserción
-        $this->idcliente = $mysqli->insert_id;
+        $this->idtipoproducto = $mysqli->insert_id;
         //Cierra la conexión
         $mysqli->close();
     }
@@ -50,7 +54,7 @@ class TipoProducto
     {
 
         $mysqli = new mysqli(Config::BBDD_HOST, Config::BBDD_USUARIO, Config::BBDD_CLAVE, Config::BBDD_NOMBRE, Config::BBDD_PORT);
-        $sql = "UPDATE clientes SET
+        $sql = "UPDATE tipo_productos SET
                 nombre = '$this->nombre'
                 WHERE idtipoproducto = $this->idtipoproducto";
 
@@ -71,30 +75,29 @@ class TipoProducto
         $mysqli->close();
     }
 
-    public function obtenerPorId()
-    {
+    public function obtenerPorId(){
         $mysqli = new mysqli(Config::BBDD_HOST, Config::BBDD_USUARIO, Config::BBDD_CLAVE, Config::BBDD_NOMBRE, Config::BBDD_PORT);
-        $sql = "SELECT idcliente,
+        $sql = "SELECT idtipoproducto, 
                         nombre
-                FROM tipo_productos
-                WHERE idtipoproducto = $this->idtipoproducto";
+                FROM tipo_productos 
+                WHERE idtipoproducto = ".$this->idtipoproducto;
         if (!$resultado = $mysqli->query($sql)) {
             printf("Error en query: %s\n", $mysqli->error . " " . $sql);
         }
 
         //Convierte el resultado en un array asociativo
-        if ($fila = $resultado->fetch_assoc()) {
+        if($fila = $resultado->fetch_assoc()){
             $this->nombre = $fila["nombre"];
         }
         $mysqli->close();
 
     }
 
-     public function obtenerTodos(){
+    public function obtenerTodos(){
         $mysqli = new mysqli(Config::BBDD_HOST, Config::BBDD_USUARIO, Config::BBDD_CLAVE, Config::BBDD_NOMBRE, Config::BBDD_PORT);
         $sql = "SELECT 
-                    idcliente,
-                    nombre
+                    idtipoproducto, 
+                    nombre 
                 FROM tipo_productos";
         if (!$resultado = $mysqli->query($sql)) {
             printf("Error en query: %s\n", $mysqli->error . " " . $sql);
@@ -103,7 +106,6 @@ class TipoProducto
         $aResultado = array();
         if($resultado){
             //Convierte el resultado en un array asociativo
-
             while($fila = $resultado->fetch_assoc()){
                 $entidadAux = new TipoProducto();
                 $entidadAux->idtipoproducto = $fila["idtipoproducto"];

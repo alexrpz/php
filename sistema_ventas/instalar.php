@@ -3,7 +3,7 @@
 include_once "config.php";
 include_once "entidades/usuario.php";
 
-$usuario = new Usuario();
+$usuario = new Usuarios();
 $usuario->usuario = "admin";
 $usuario->clave = $usuario->encriptarClave("admin123");
 $usuario->nombre = "Administrador";

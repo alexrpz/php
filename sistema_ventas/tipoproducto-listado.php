@@ -1,6 +1,11 @@
 <?php
 include_once("config.php");
 include_once("header.php"); 
+include_once "entidades/tipoproducto.php";
+
+$tipoProducto= new TipoProducto();
+$aTipoProductos= $tipoProducto->obtenerTodos();
+
 ?>
 <div class="container-fluid">
     <div class="row">
@@ -17,9 +22,11 @@ include_once("header.php");
             <th>Nombre:</th>
             <th>Acciones:</th>
         </tr>
-        <tr>
-            <td></td>
-            <td></td>
-        </tr>
+        <?php foreach($aTipoProductos as $tipoProducto): ?>
+            <tr>
+                <td><?php echo $tipoProducto->nombre; ?></td>
+                <td><a href="tipoproducto-formulario.php?id=<?php echo $tipoProducto->idtipoproducto; ?>">Editar</a></td>
+            </tr>
+        <?php endforeach; ?>
     </table>
 </div>

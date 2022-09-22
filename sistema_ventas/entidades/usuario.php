@@ -1,6 +1,6 @@
 <?php
 
-class Usuario {
+class Usuarios {
     private $idusuario;
     private $usuario;
     private $clave;
@@ -25,7 +25,7 @@ class Usuario {
     public function cargarFormulario($request){
         $this->idusuario = isset($request["id"])? $request["id"] : "";
         $this->usuario = isset($request["txtUsuario"])? $request["txtUsuario"] : "";
-        $this->clave = isset($request["txtClave"]) && $request["txtClave"] != "" ? $this->encriptarClave($request["txtClave"]) : "";
+        $this->clave = isset($request["txtClave"]) && $request["txtClave"] != "" ?  password_hash($request["txtClave"]) : "";
         $this->nombre = isset($request["txtNombre"])? $request["txtNombre"] : "";
         $this->apellido = isset($request["txtApellido"])? $request["txtApellido"]: "";
         $this->correo = isset($request["txtCorreo"])? $request["txtCorreo"]: "";
@@ -152,7 +152,7 @@ class Usuario {
         if($resultado){
             //Convierte el resultado en un array asociativo
             while($fila = $resultado->fetch_assoc()){
-                $entidadAux = new Usuario();
+                $entidadAux = new Usuarios();
                 $entidadAux->idusuario = $fila["idusuario"];
                 $entidadAux->usuario = $fila["usuario"];
                 $entidadAux->clave = $fila["clave"];

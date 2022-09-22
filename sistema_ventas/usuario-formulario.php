@@ -6,29 +6,35 @@ include_once "entidades/usuario.php";
 
 $pg = "Edición de usuario";
 
-$usuario = new Usuario();
+$usuario = new Usuarios();
 $usuario->cargarFormulario($_REQUEST);
 
-if ($_POST) {
-
-    if (isset($_POST["btnGuardar"])) {
-        if (isset($_GET["id"]) && $_GET["id"] > 0) {
-            //Actualizo un usuario existente
-            $usuario->actualizar();
+if($_POST){
+    if(isset($_POST["btnGuardar"])){
+        if(isset($_GET["id"]) && $_GET["id"] > 0){
+              //Actualizo un cliente existente
+              $usuario->actualizar();
         } else {
             //Es nuevo
-            $usuario->insertar();
+            $usuario = new Usuarios();
+            $usuario->idusuario;
+            $usuario->obtenerPorId();
+            if($venta->cantidad <= $usuario->cantidad){
+                $total = $venta->cantidad * $usuario->precio;
+                $venta->total = $total;
+                $venta->insertar();
+
+                $usuario->cantidad -= $venta->cantidad;
+                $usuario->actualizar();
+            } else {
+                $msg = "No hay stock suficiente";
+            }
         }
-    } else if (isset($_POST["btnBorrar"])) {
-        $usuario->eliminar();
+    } else if(isset($_POST["btnBorrar"])){
+        $venta->eliminar();
         header("Location: usuario-listado.php");
     }
-}
-
-if (isset($_GET["id"]) && $_GET["id"] > 0) {
-    $usuario->obtenerPorId();
-}
-
+} 
 
 include_once "header.php";
 ?>
@@ -47,15 +53,15 @@ include_once "header.php";
             </div>
             <div class="row">
                 <div class="col-6 form-group">
-                    <label for="txtNombre">Usuario:</label>
+                    <label for="txtUsuario">Usuario:</label>
                     <input type="text" required class="form-control" name="txtUsuario" id="txtUsuario" value="<?php echo $usuario->usuario ?>">
                 </div>
                 <div class="col-6 form-group">
-                    <label for="txtCuit">Nombre:</label>
+                    <label for="txtNombre">Nombre:</label>
                     <input type="text" required class="form-control" name="txtNombre" id="txtNombre" value="<?php echo $usuario->nombre ?>">
                 </div>
                 <div class="col-6 form-group">
-                    <label for="txtCuit">Apellido:</label>
+                    <label for="txtApellido">Apellido:</label>
                     <input type="text" required class="form-control" name="txtApellido" id="txtApellido" value="<?php echo $usuario->apellido ?>">
                 </div>
                 <div class="col-6 form-group">
@@ -63,7 +69,7 @@ include_once "header.php";
                     <input type="email" class="form-control" name="txtCorreo" id="txtCorreo" required value="<?php echo $usuario->correo ?>">
                 </div>
                 <div class="col-6 form-group">
-                    <label for="txtCorreo">Clave:</label>
+                    <label for="txtClave">Clave:</label>
                     <input type="password" class="form-control" name="txtClave" id="txtClave" value="">
                     <small>Completar únicamente para cambiar la clave</small>
                 </div>

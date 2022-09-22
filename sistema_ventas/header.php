@@ -1,14 +1,13 @@
 <?php
 if(!isset($_SESSION["nombre"])){
-  header("Location:login.php");
+    header("location:login.php");
 }
+
 if($_POST){
-  if(isset($_SESSION["btnCerrar"])){
-    if(isset($_SESSION["nombre"])){
-      session_destroy();
-      header("location: login.php");
+    if(isset($_POST["btnCerrar"])){ /* Analizamos si es la accion del boton cerrar */
+        session_destroy();
+        header("location:login.php");
     }
-  }
 }
 ?>
 
