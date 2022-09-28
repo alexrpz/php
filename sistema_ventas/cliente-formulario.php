@@ -9,7 +9,7 @@ include_once "entidades/venta.php";
 $cliente = new Clientes();
 $cliente->cargarFormulario($_REQUEST);
 
-$pg = "Listado de clientes";
+$pg = "Nuevo cliente";
 
 if($_POST){
     if(isset($_POST["btnGuardar"])){

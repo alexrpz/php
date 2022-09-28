@@ -7,10 +7,10 @@ include_once "entidades/tipoproducto.php";
 $pg = "Edición de producto";
 
 $producto = new Productos();
-$producto->cargarFormulario($_REQUEST);
 
 if ($_POST) {
     if (isset($_POST["btnGuardar"])) {
+        $producto->cargarFormulario($_REQUEST);
         if (isset($_GET["id"]) && $_GET["id"] > 0) {
             //Almacenamos la imagen en el servidor
             if ($_FILES["archivo"]["error"] === UPLOAD_ERR_OK) {
@@ -29,8 +29,9 @@ if ($_POST) {
                         unlink("files/$productoAnt->imagen");
                     }
                     //subo la imagen nueva
-                    move_uploaded_file($archivoTmp, "files/$nombreImagen");
+                    move_uploaded_file($archivo_tmp, "files/$nombreImagen");
                 }
+            }
                 $producto->imagen = $nombreImagen;
             }else{
                 $productoAnt = new Productos();
@@ -40,6 +41,8 @@ if ($_POST) {
             }
 
             $producto->actualizar();
+            $msg["texto"]= "Actualizado correctamente";
+            $msg["codigo"]= "alert-success";
                 //Si es una actualizacion y se sube una imagen, elimina la anterior
         } else {  
             if ($_FILES["archivo"]["error"] === UPLOAD_ERR_OK) {
@@ -50,26 +53,25 @@ if ($_POST) {
                 $nombreImagen = "$nombreAleatorio.$extension";
 
                 if($extension == "png" || $extension == "jpg" || $extension == "jpeg"){
-                    move_uploaded_file($archivo_tmp, "files/$nombreImagen");
-                }
-                $producto->imagen =$nombreImagen;
-                }
-            
+                            move_uploaded_file($archivo_tmp, "files/$nombreImagen");
+                        }
+                    $producto->imagen =$nombreImagen;
+            }
                 //Es nuevo
                 $producto->insertar();
             } 
         } else if (isset($_POST["btnBorrar"])) {
             $producto= new Productos();
             $producto->obtenerPorId();
-            if(file_exists("files/$producto->imagen"))
-            unlink("files/$producto->imagen");
+            if(file_exists("files/$producto->imagen")){
+                unlink("files/$producto->imagen");
+            }
             $producto->eliminar();
             header("Location: producto-listado.php");
     }
-}
+
 if (isset($_GET["id"]) && $_GET["id"] > 0) {
     $producto->obtenerPorId();
-
 }
 
 $tipoProducto = new TipoProducto();
@@ -77,6 +79,8 @@ $aTipoProductos = $tipoProducto->obtenerTodos();
 
 include_once "header.php";
 ?>
+
+
 <script src="https://cdn.ckeditor.com/ckeditor5/35.0.1/classic/ckeditor.js"></script>
 <div class="container-fluid">
     <div class="row">
@@ -136,7 +140,7 @@ include_once "header.php";
         </div>
         <div class="py-3">
             <label for="fileImagen">Imagen:</label>
-            <input type="file" class="form-control-file" name="archivo" id="imagen">
+            <input type="file" class="form-control-image" name="archivo" id="image" >
             <?php if($producto->imagen !=""):?>
                 <img src="files/<?php echo $producto->imagen; ?>" class="img-thumbnail">
             <?php endif; ?>

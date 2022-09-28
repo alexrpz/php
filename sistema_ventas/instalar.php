@@ -5,7 +5,7 @@ include_once "entidades/usuario.php";
 
 $usuario = new Usuarios();
 $usuario->usuario = "admin";
-$usuario->clave = $usuario->encriptarClave("admin123");
+$usuario->clave = password_hash("admin123", PASSWORD_DEFAULT);
 $usuario->nombre = "Administrador";
 $usuario->apellido = "";
 $usuario->correo = "admin@correo.com";

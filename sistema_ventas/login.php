@@ -2,24 +2,24 @@
 include_once "config.php";
 include_once "entidades/usuario.php";
 
-session_start();
 
 if($_POST){
-  $usuario = trim($_REQUEST["txtUsuario"]);
+  $nombreUsuario = trim($_REQUEST["txtUsuario"]);
   $clave = trim($_REQUEST["txtClave"]);
 
   //Si el usuario es admin y la clave es admin123
-  if($usuario=="admin" && $clave=="admin123"){
-    //Crear una variable de session con tu nombre
-    $_SESSION["nombre"]="alex";
+  $entidadUsuario= new Usuarios();
+  $entidadUsuario->obtenerPorUsuario($nombreUsuario);
+  
+
+  if($entidadUsuario->usuario == $nombreUsuario && password_verify($clave, $entidadUsuario->clave)){
+    $_SESSION["nombre"] = $entidadUsuario->nombre . " " . $entidadUsuario->apellido;
         header("location: index.php");//Redireccionar a index.php
     }else{
       $msg= "Usuario o clave incorrecto"; //sino
                                           //$msg = "Usuario o clave incorrecto";
   }
 }
-
-
 
 ?>
 <!DOCTYPE html>

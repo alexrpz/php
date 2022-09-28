@@ -1,11 +1,12 @@
 <?php
-include_once("config.php");
-include_once("header.php"); 
+include_once("config.php"); 
 include_once "entidades/tipoproducto.php";
 
 $tipoProducto= new TipoProducto();
 $aTipoProductos= $tipoProducto->obtenerTodos();
 
+$pg= "Tipo de productos";
+include_once("header.php");
 ?>
 <div class="container-fluid">
     <div class="row">

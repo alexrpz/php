@@ -45,12 +45,12 @@ class Productos {
                     descripcion, 
                     imagen
                 ) VALUES (
-                    '$this->nombre', 
-                    $this->fk_idtipoproducto,
-                    $this->cantidad,
-                    $this->precio, 
-                    '$this->descripcion',
-                    '$this->imagen'
+                    '" . $this->nombre ."', 
+                    '" . $this->fk_idtipoproducto ."', 
+                    '" . $this->cantidad ."' ,
+                    '" . $this->precio ."' ,
+                    '" . $this->descripcion ."',
+                    '" . $this->imagen ."'
                 );";
         //Ejecuta la query
         if (!$mysqli->query($sql)) {
@@ -70,10 +70,10 @@ class Productos {
                 fk_idtipoproducto = $this->fk_idtipoproducto,
                 cantidad = $this->cantidad,
                 precio = $this->precio,
-                descripcion = '$this->descripcion,
+                descripcion = '$this->descripcion',
                 imagen = '$this->imagen'
                 WHERE idproducto = $this->idproducto";
-          
+          //print_r($sql);exit;
         if (!$mysqli->query($sql)) {
             printf("Error en query: %s\n", $mysqli->error . " " . $sql);
         }
@@ -82,7 +82,7 @@ class Productos {
 
     public function eliminar(){
         $mysqli = new mysqli(Config::BBDD_HOST, Config::BBDD_USUARIO, Config::BBDD_CLAVE, Config::BBDD_NOMBRE, Config::BBDD_PORT);
-        $sql = "DELETE FROM productos WHERE idproducto = " . $this->idproducto;
+        $sql = "DELETE FROM productos WHERE idproducto = $this->idproducto";
         //Ejecuta la query
         if (!$mysqli->query($sql)) {
             printf("Error en query: %s\n", $mysqli->error . " " . $sql);
@@ -99,7 +99,7 @@ class Productos {
                         descripcion,
                         imagen
                 FROM productos
-                WHERE fk_idtipoproducto = " . $idTipoProductos;
+                WHERE fk_idtipoproducto = ". $idTipoProductos;
         if (!$resultado = $mysqli->query($sql)) {
             printf("Error en query: %s\n", $mysqli->error . " " . $sql);
         }
@@ -132,6 +132,7 @@ class Productos {
                         imagen
                 FROM productos 
                 WHERE idproducto = " . $this->idproducto;
+               //print_r($sql);exit;
         if (!$resultado = $mysqli->query($sql)) {
             printf("Error en query: %s\n", $mysqli->error . " " . $sql);
         }
